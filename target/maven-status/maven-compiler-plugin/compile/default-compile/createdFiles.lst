@@ -1,0 +1,8 @@
+com/project/workflow/utils/ValidateFormFields.class
+com/project/workflow/repository/CustomerRegistrationRepository.class
+com/project/workflow/CamundaConfig.class
+com/project/workflow/controllers/CustomerRegistrationController.class
+com/project/workflow/entitiy/CustomerRegistration.class
+com/project/workflow/Application.class
+com/project/workflow/utils/GenerateApplicationID.class
+com/project/workflow/services/CustomerRegistrationService.class

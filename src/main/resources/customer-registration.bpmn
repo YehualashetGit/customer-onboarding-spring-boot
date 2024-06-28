@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+                  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+                  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+                  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+                  xmlns:modeler="http://camunda.org/schema/modeler/1.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  id="Definitions_1"
+                  targetNamespace="http://bpmn.io/schema/bpmn"
+                  exporter="Camunda Modeler"
+                  exporterVersion="4.12.0"
+                  modeler:executionPlatform="Camunda Platform"
+                  modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="customerOnboardingProcess" isExecutable="true" camunda:historyTimeToLive="180">
+    <bpmn:startEvent id="StartEvent_1" name="Customer Fills Form">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="UserTask_1" name="Fill Onboarding Form">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="purpose" label="Main purpose for applying at MCB" type="enum">
+            <camunda:value id="investment" name="Investment portfolio" />
+            <camunda:value id="local" name="Account to operate locally" />
+            <camunda:value id="overseas" name="Account to operate overseas" />
+            <camunda:value id="energy" name="Energy &amp; commodities financing" />
+          </camunda:formField>
+          <camunda:formField id="companyName" label="Name of company" type="string" />
+          <camunda:formField id="entityType" label="Type of entity" type="string" />
+          <camunda:formField id="businessActivity" label="Business activity" type="enum">
+            <camunda:value id="banking" name="Banking" />
+            <camunda:value id="fishing" name="Fishing" />
+            <camunda:value id="manufacturing" name="Manufacturing" />
+          </camunda:formField>
+          <camunda:formField id="licenseRequirements" label="License requirements" type="string" />
+          <camunda:formField id="countryOfIncorporation" label="Country of incorporation" type="string" />
+          <camunda:formField id="registrationNumber" label="Registration number" type="string" />
+          <camunda:formField id="dateOfIncorporation" label="Date of incorporation" type="date" />
+          <camunda:formField id="directorNames" label="Name of Director/ Shareholders" type="string" />
+          <camunda:formField id="directorPassportNumbers" label="Passport number of directors" type="string" />
+          <camunda:formField id="designatedApplicant" label="Name of designated applicant" type="string" />
+          <camunda:formField id="email" label="Email address for further communication" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="ServiceTask_1" name="Validate Form Fields" camunda:class="com.example.ValidateFormFields">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_2" name="Generate Application ID" camunda:class="com.example.GenerateApplicationID">
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="EndEvent_1" name="Application Submitted">
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent_1" targetRef="UserTask_1"/>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="UserTask_1" targetRef="ServiceTask_1"/>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="ServiceTask_1" targetRef="ServiceTask_2"/>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="ServiceTask_2" targetRef="EndEvent_1"/>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_customerOnboardingProcess">
+    <bpmndi:BPMNPlane id="BPMNPlane_customerOnboardingProcess" bpmnElement="customerOnboardingProcess">
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="82" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="125" y="118" width="90" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1_di" bpmnElement="UserTask_1">
+        <dc:Bounds x="240" y="60" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1_di" bpmnElement="ServiceTask_1">
+        <dc:Bounds x="400" y="60" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_2_di" bpmnElement="ServiceTask_2">
+        <dc:Bounds x="560" y="60" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="EndEvent_1">
+        <dc:Bounds x="720" y="82" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="693" y="118" width="90" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
+        <di:waypoint xsi:type="dc:Point" x="188" y="100"/>
+        <di:waypoint xsi:type="dc:Point" x="240" y="100"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2">
+        <di:waypoint xsi:type="dc:Point" x="340" y="100"/>
+        <di:waypoint xsi:type="dc:Point" x="400" y="100"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3">
+        <di:waypoint xsi:type="dc:Point" x="500" y="100"/>
+        <di:waypoint xsi:type="dc:Point" x="560" y="100"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4">
+        <di:waypoint xsi:type="dc:Point" x="660" y="100"/>
+        <di:waypoint xsi:type="dc:Point" x="720" y="100"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
