@@ -1,12 +1,42 @@
-package com.project.workflow.entitiy;
+package com.project.workflow.entity;
 
+import com.project.workflow.utils.Status;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+
 @Entity
-public class CustomerRegistration {
+@Table(name = "customer_registrations")
+public class CustomerRegistration implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+
+    @Column(nullable = false)
+    private Status status = Status.PENDING;
+
+    // we need to store camunda process id in the database
+    @Column(nullable = false)
+    private String processInstanceId;
+
+    public String getProcessInstanceId() {
+        return processInstanceId;
+    }
+
+    public void setProcessInstanceId(String processInstanceId) {
+        this.processInstanceId = processInstanceId;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
