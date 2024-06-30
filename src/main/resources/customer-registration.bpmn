@@ -1,105 +1,158 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
-                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
-                  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
-                  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
-                  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
-                  xmlns:modeler="http://camunda.org/schema/modeler/1.0"
-                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                  id="Definitions_1"
-                  targetNamespace="http://bpmn.io/schema/bpmn"
-                  exporter="Camunda Modeler"
-                  exporterVersion="4.12.0"
-                  modeler:executionPlatform="Camunda Platform"
-                  modeler:executionPlatformVersion="7.15.0">
-  <bpmn:process id="customerOnboardingProcess" isExecutable="true" camunda:historyTimeToLive="180">
-    <bpmn:startEvent id="StartEvent_1" name="Customer Fills Form">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:tns="http://bpmn.io/schema/bpmn"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:yaoqiang="http://bpmn.sourceforge.net" exporter="Camunda Modeler" exporterVersion="4.12.0"
+             expressionLanguage="http://www.w3.org/1999/XPath" id="Definitions_1" name=""
+             targetNamespace="http://bpmn.io/schema/bpmn" typeLanguage="http://www.w3.org/2001/XMLSchema"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://bpmn.sourceforge.net/schemas/BPMN20.xsd">
+    <bpmn:process camunda:historyTimeToLive="180" id="customerOnboardingProcess" isClosed="false" isExecutable="true"
+                  processType="None">
+        <bpmn:extensionElements>
+            <yaoqiang:description/>
+            <yaoqiang:pageFormat height="841.8897637795276" imageableHeight="831.8897637795276"
+                                 imageableWidth="588.1102362204724" imageableX="5.0" imageableY="5.0" orientation="0"
+                                 width="598.1102362204724"/>
+            <yaoqiang:page background="#FFFFFF" horizontalCount="1" verticalCount="1"/>
+        </bpmn:extensionElements>
+        <bpmn:startEvent id="StartEvent_1" isInterrupting="true" name="Customer Fills Form" parallelMultiple="false">
       <bpmn:outgoing>Flow_1</bpmn:outgoing>
+            <bpmn:outputSet/>
     </bpmn:startEvent>
-    <bpmn:userTask id="UserTask_1" name="Fill Onboarding Form">
+        <bpmn:userTask completionQuantity="1" id="UserTask_1" implementation="##unspecified" isForCompensation="false"
+                       name="Fill Onboarding Form" startQuantity="1">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="purpose" label="Main purpose for applying at MCB" type="enum">
-            <camunda:value id="investment" name="Investment portfolio" />
-            <camunda:value id="local" name="Account to operate locally" />
-            <camunda:value id="overseas" name="Account to operate overseas" />
-            <camunda:value id="energy" name="Energy &amp; commodities financing" />
-          </camunda:formField>
-          <camunda:formField id="companyName" label="Name of company" type="string" />
-          <camunda:formField id="entityType" label="Type of entity" type="string" />
-          <camunda:formField id="businessActivity" label="Business activity" type="enum">
-            <camunda:value id="banking" name="Banking" />
-            <camunda:value id="fishing" name="Fishing" />
-            <camunda:value id="manufacturing" name="Manufacturing" />
-          </camunda:formField>
-          <camunda:formField id="licenseRequirements" label="License requirements" type="string" />
-          <camunda:formField id="countryOfIncorporation" label="Country of incorporation" type="string" />
-          <camunda:formField id="registrationNumber" label="Registration number" type="string" />
-          <camunda:formField id="dateOfIncorporation" label="Date of incorporation" type="date" />
-          <camunda:formField id="directorNames" label="Name of Director/ Shareholders" type="string" />
-          <camunda:formField id="directorPassportNumbers" label="Passport number of directors" type="string" />
-          <camunda:formField id="designatedApplicant" label="Name of designated applicant" type="string" />
-          <camunda:formField id="email" label="Email address for further communication" type="string" />
+            <formData>
+                <!-- Form fields here -->
+            </formData>
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1</bpmn:incoming>
       <bpmn:outgoing>Flow_2</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="ServiceTask_1" name="Validate Form Fields" camunda:class="com.example.ValidateFormFields">
+        <bpmn:serviceTask camunda:class="com.example.ValidateFormFields" completionQuantity="1" id="ServiceTask_1"
+                          implementation="##WebService" isForCompensation="false" name="Validate Form Fields"
+                          startQuantity="1">
       <bpmn:incoming>Flow_2</bpmn:incoming>
       <bpmn:outgoing>Flow_3</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="ServiceTask_2" name="Generate Application ID" camunda:class="com.example.GenerateApplicationID">
+        <bpmn:serviceTask camunda:class="com.example.GenerateApplicationID" completionQuantity="1" id="ServiceTask_2"
+                          implementation="##WebService" isForCompensation="false" name="Generate Application ID"
+                          startQuantity="1">
       <bpmn:incoming>Flow_3</bpmn:incoming>
       <bpmn:outgoing>Flow_4</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:endEvent id="EndEvent_1" name="Application Submitted">
+        <bpmn:userTask camunda:assignee="processingTeam" completionQuantity="1" id="UserTask_2"
+                       implementation="##unspecified" isForCompensation="false" name="Processing Team Review"
+                       startQuantity="1">
       <bpmn:incoming>Flow_4</bpmn:incoming>
+      <bpmn:outgoing>Flow_5</bpmn:outgoing>
+    </bpmn:userTask>
+        <bpmn:userTask camunda:assignee="approver" completionQuantity="1" id="UserTask_3" implementation="##unspecified"
+                       isForCompensation="false" name="Approver Review" startQuantity="1">
+      <bpmn:incoming>Flow_5</bpmn:incoming>
+      <bpmn:outgoing>Flow_6</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_1" name="Application Submitted">
+      <bpmn:incoming>Flow_6</bpmn:incoming>
+        <bpmn:inputSet/>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent_1" targetRef="UserTask_1"/>
     <bpmn:sequenceFlow id="Flow_2" sourceRef="UserTask_1" targetRef="ServiceTask_1"/>
     <bpmn:sequenceFlow id="Flow_3" sourceRef="ServiceTask_1" targetRef="ServiceTask_2"/>
-    <bpmn:sequenceFlow id="Flow_4" sourceRef="ServiceTask_2" targetRef="EndEvent_1"/>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="ServiceTask_2" targetRef="UserTask_2"/>
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="UserTask_2" targetRef="UserTask_3"/>
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="UserTask_3" targetRef="EndEvent_1"/>
   </bpmn:process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_customerOnboardingProcess">
-    <bpmndi:BPMNPlane id="BPMNPlane_customerOnboardingProcess" bpmnElement="customerOnboardingProcess">
-      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
-        <dc:Bounds x="152" y="82" width="36" height="36"/>
+    <bpmndi:BPMNDiagram id="Yaoqiang_Diagram-customerOnboardingProcess" name="Untitled Diagram" resolution="96.0">
+        <bpmndi:BPMNPlane bpmnElement="customerOnboardingProcess">
+            <bpmndi:BPMNShape bpmnElement="StartEvent_1" id="Yaoqiang-StartEvent_1">
+                <dc:Bounds height="32.0" width="32.0" x="152.0" y="82.0"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="125" y="118" width="90" height="20"/>
+            <dc:Bounds height="18.96" width="114.0" x="113.0" y="118.5"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="UserTask_1_di" bpmnElement="UserTask_1">
-        <dc:Bounds x="240" y="60" width="100" height="80"/>
+            <bpmndi:BPMNShape bpmnElement="UserTask_1" id="Yaoqiang-UserTask_1">
+                <dc:Bounds height="80.0" width="100.0" x="240.0" y="60.0"/>
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds height="32.96" width="89.0" x="245.5" y="85.52"/>
+                </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ServiceTask_1_di" bpmnElement="ServiceTask_1">
-        <dc:Bounds x="400" y="60" width="100" height="80"/>
+            <bpmndi:BPMNShape bpmnElement="ServiceTask_1" id="Yaoqiang-ServiceTask_1">
+                <dc:Bounds height="80.0" width="100.0" x="400.0" y="60.0"/>
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds height="32.96" width="79.0" x="410.5" y="85.52"/>
+                </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ServiceTask_2_di" bpmnElement="ServiceTask_2">
-        <dc:Bounds x="560" y="60" width="100" height="80"/>
+            <bpmndi:BPMNShape bpmnElement="ServiceTask_2" id="Yaoqiang-ServiceTask_2">
+                <dc:Bounds height="80.0" width="100.0" x="560.0" y="60.0"/>
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds height="32.96" width="81.0" x="569.5" y="85.52"/>
+                </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="EndEvent_1">
-        <dc:Bounds x="720" y="82" width="36" height="36"/>
+            <bpmndi:BPMNShape bpmnElement="UserTask_2" id="Yaoqiang-UserTask_2">
+                <dc:Bounds height="80.0" width="100.0" x="720.0" y="60.0"/>
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds height="32.96" width="74.0" x="733.0" y="85.52"/>
+                </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="UserTask_3" id="Yaoqiang-UserTask_3">
+                <dc:Bounds height="80.0" width="100.0" x="880.0" y="60.0"/>
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds height="32.96" width="57.0" x="901.5" y="85.52"/>
+                </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="EndEvent_1" id="Yaoqiang-EndEvent_1">
+                <dc:Bounds height="32.0" width="32.0" x="1040.0" y="82.0"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="693" y="118" width="90" height="20"/>
+            <dc:Bounds height="18.96" width="124.0" x="996.0" y="118.5"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
-        <di:waypoint xsi:type="dc:Point" x="188" y="100"/>
-        <di:waypoint xsi:type="dc:Point" x="240" y="100"/>
+            <bpmndi:BPMNEdge bpmnElement="Flow_6" id="Yaoqiang-Flow_6">
+                <di:waypoint x="980.0" y="100.0"/>
+                <di:waypoint x="1040.0" y="98.0"/>
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds height="18.96" width="6.0" x="1007.0" y="89.52"/>
+                </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2">
-        <di:waypoint xsi:type="dc:Point" x="340" y="100"/>
-        <di:waypoint xsi:type="dc:Point" x="400" y="100"/>
+            <bpmndi:BPMNEdge bpmnElement="Flow_5" id="Yaoqiang-Flow_5">
+                <di:waypoint x="820.0" y="100.0"/>
+                <di:waypoint x="880.0" y="100.0"/>
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds height="18.96" width="6.0" x="847.0" y="90.52"/>
+                </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3">
-        <di:waypoint xsi:type="dc:Point" x="500" y="100"/>
-        <di:waypoint xsi:type="dc:Point" x="560" y="100"/>
+            <bpmndi:BPMNEdge bpmnElement="Flow_4" id="Yaoqiang-Flow_4">
+                <di:waypoint x="660.0" y="100.0"/>
+                <di:waypoint x="720.0" y="100.0"/>
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds height="18.96" width="6.0" x="687.0" y="90.52"/>
+                </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4">
-        <di:waypoint xsi:type="dc:Point" x="660" y="100"/>
-        <di:waypoint xsi:type="dc:Point" x="720" y="100"/>
+            <bpmndi:BPMNEdge bpmnElement="Flow_3" id="Yaoqiang-Flow_3">
+                <di:waypoint x="500.0" y="100.0"/>
+                <di:waypoint x="560.0" y="100.0"/>
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds height="18.96" width="6.0" x="527.0" y="90.52"/>
+                </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="Flow_2" id="Yaoqiang-Flow_2">
+                <di:waypoint x="340.0" y="100.0"/>
+                <di:waypoint x="400.0" y="100.0"/>
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds height="18.96" width="6.0" x="367.0" y="90.52"/>
+                </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="Flow_1" id="Yaoqiang-Flow_1">
+                <di:waypoint x="184.0" y="98.0"/>
+                <di:waypoint x="240.0" y="100.0"/>
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds height="18.96" width="6.0" x="209.0" y="89.52"/>
+                </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
-</bpmn:definitions>
+</definitions>
